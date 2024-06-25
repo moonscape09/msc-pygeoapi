@@ -100,7 +100,8 @@ class MSCDMSCoreAPIProvider(BaseProvider):
         LOGGER.debug('Grabbing field information')
         self.fields = self.get_fields()
 
-        self.sortables = [sortable for sortable in provider_def.get('sortables', [self.time_field])]
+        self.sortables = [sortable for sortable
+                        in provider_def.get('sortables', [self.time_field])]
 
     def get_fields(self):
         """
