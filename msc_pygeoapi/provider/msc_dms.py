@@ -242,9 +242,8 @@ class MSCDMSCoreAPIProvider(BaseProvider):
             LOGGER.debug('processing sortby')
             sort_by_values = []
             for sort in sortby:
-                # only allow sort on time_field
-                if sort['property'] != self.time_field:
-                    msg = f'Sorting only enabled for {self.time_field}'
+                if sort['property'] not in ['obs_date-tm', 'processed_date-tm']:
+                    msg = f'Sorting only enabled for obs_date-tm and processed_date-tm'
                     raise ProviderQueryError(msg)
                 LOGGER.debug(f'processing sort object: {sort}')
                 sort_property = f'{sort["order"]}properties.{sort["property"]}'
