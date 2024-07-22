@@ -100,6 +100,8 @@ class MSCDMSCoreAPIProvider(BaseProvider):
         LOGGER.debug('Grabbing field information')
         self.fields = self.get_fields()
 
+        self.sortables = ['obs_date_tm', 'processed_date_tm']
+
     def get_fields(self):
         """
          Get provider field information (names, types)
@@ -242,9 +244,8 @@ class MSCDMSCoreAPIProvider(BaseProvider):
             LOGGER.debug('processing sortby')
             sort_by_values = []
             for sort in sortby:
-                print(sort['property'])
-                if sort['property'] not in ['obs_date_tm', 'processed_date_tm']:
-                    msg = f'Sorting only enabled for obs_date_tm and processed_date_tm'
+                if sort['property'] not in self.sortables:
+                    msg = f'Sorting only enabled for {self.sortables}'
                     raise ProviderQueryError(msg)
                 LOGGER.debug(f'processing sort object: {sort}')
                 sort_property = f'{sort["order"]}properties.{sort["property"]}'
